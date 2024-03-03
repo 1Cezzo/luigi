@@ -1,1 +1,1 @@
-web gunicorn luigi.wsqi:application --log-file -
+web: gunicorn luigi.wsqi:application --log-file -
