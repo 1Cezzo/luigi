@@ -23,7 +23,7 @@ class Command(BaseCommand):
         }
 
         try:
-            for page_num in range(0, 49):
+            for page_num in range(9, 11):
                 querystring = {"league": "39", "season": "2023", "page": str(page_num)}
                 response = requests.get(url, headers=headers, params=querystring)
 
@@ -48,6 +48,10 @@ class Command(BaseCommand):
                                         team_name = "Unknown"
                                 else:
                                     team_name = "Unknown"
+                                if player.get('photo'):
+                                    player_image = player.get('photo')
+                                if player_data['statistics'][0].get('team').get('logo'):
+                                    team_logo = player_data['statistics'][0]['team'].get('logo')
 
                                 if player_name and player_age and player_nationality and team_name:
                                     Player.objects.update_or_create(
@@ -55,7 +59,9 @@ class Command(BaseCommand):
                                         defaults={
                                             'age': player_age,
                                             'nationality': player_nationality,
-                                            'team_name': team_name
+                                            'team_name': team_name,
+                                            'player_image': player_image,
+                                            'team_logo': team_logo
                                         }
                                     )
 

@@ -5,6 +5,8 @@ class Player(models.Model):
     age = models.IntegerField()
     nationality = models.CharField(max_length=100)
     team_name = models.CharField(max_length=100)
+    team_logo = models.URLField(max_length=200, blank=True)
+    player_image = models.URLField(max_length=200, blank=True)
 
     def __str__(self):
         return self.name
