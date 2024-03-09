@@ -23,7 +23,7 @@ class Command(BaseCommand):
         }
 
         try:
-            for page_num in range(9, 11):
+            for page_num in range(0, 49):
                 querystring = {"league": "39", "season": "2023", "page": str(page_num)}
                 response = requests.get(url, headers=headers, params=querystring)
 
