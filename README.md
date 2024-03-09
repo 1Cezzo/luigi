@@ -1,2 +1,2 @@
 # luigi
-Backend for Guess the player
+Backend for **guess the player**
