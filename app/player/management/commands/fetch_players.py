@@ -39,10 +39,15 @@ class Command(BaseCommand):
                                 first_name = player.get("firstname", "").split()[0]
                                 last_name = player.get("lastname", "")
                                 player_name = f"{first_name} {last_name}".strip()
+                                
+                                if len(player_name) > 17:
+                                    player_name = player.get("name", "").strip()
+
                                 player_age = player.get("age")
                                 player_height = player.get("height")
                                 player_position = player_data['statistics'][0].get('games', {}).get('position', 'Unknown)')
                                 player_nationality = player.get('nationality', "Unknown")
+
                                 if player_data.get('statistics'):
                                     if player_data['statistics'][0].get('team'):
                                         team_name = player_data['statistics'][0]['team'].get('name', "Unknown")
@@ -50,6 +55,7 @@ class Command(BaseCommand):
                                         team_name = "Unknown"
                                 else:
                                     team_name = "Unknown"
+                                    
                                 if player.get('photo'):
                                     player_image = player.get('photo')
                                 if player_data['statistics'][0].get('team').get('logo'):
