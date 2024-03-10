@@ -40,6 +40,8 @@ class Command(BaseCommand):
                                 last_name = player.get("lastname", "")
                                 player_name = f"{first_name} {last_name}".strip()
                                 player_age = player.get("age")
+                                player_height = player.get("height")
+                                player_position = player_data['statistics'][0].get('games', {}).get('position', 'Unknown)')
                                 player_nationality = player.get('nationality', "Unknown")
                                 if player_data.get('statistics'):
                                     if player_data['statistics'][0].get('team'):
@@ -53,11 +55,13 @@ class Command(BaseCommand):
                                 if player_data['statistics'][0].get('team').get('logo'):
                                     team_logo = player_data['statistics'][0]['team'].get('logo')
 
-                                if player_name and player_age and player_nationality and team_name:
+                                if player_name and player_age and player_nationality and team_name and player_height:
                                     Player.objects.update_or_create(
                                         name=player_name,
                                         defaults={
                                             'age': player_age,
+                                            'height': player_height,
+                                            'position': player_position,
                                             'nationality': player_nationality,
                                             'team_name': team_name,
                                             'player_image': player_image,
