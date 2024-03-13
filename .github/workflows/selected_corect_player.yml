@@ -1,4 +1,4 @@
-name: Update Selected Player
+name: Select Correct Player
 
 on:
   schedule:
