@@ -1,9 +1,5 @@
 name: Update Selected Player
 
-git add .
-git commit -m "Test GitHub Actions workflow"
-git push origin main
-
 on:
   schedule:
     - cron: '0 0 * * *'
