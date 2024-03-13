@@ -1,0 +1,22 @@
+name: Update Selected Player
+
+git add .
+git commit -m "Test GitHub Actions workflow"
+git push origin main
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update-selected-player:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Management Command
+        run: |
+          python manage.py update_selected_player
+        working-directory: /

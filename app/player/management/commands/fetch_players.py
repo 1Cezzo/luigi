@@ -55,7 +55,7 @@ class Command(BaseCommand):
                                         team_name = "Unknown"
                                 else:
                                     team_name = "Unknown"
-                                    
+
                                 if player.get('photo'):
                                     player_image = player.get('photo')
                                 if player_data['statistics'][0].get('team').get('logo'):
