@@ -16,3 +16,4 @@ jobs:
         run: |
           python manage.py update_selected_player
         working-directory: /
+        
