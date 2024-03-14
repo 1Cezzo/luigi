@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from app.player.models.selected_player import SelectedPlayer
-from app.player.models.player import Player  # Add this import
+from app.player.models.player import Player
 from app.player.serializers.selected_player import SelectedPlayerSerializer
 from datetime import datetime, timezone
 import random
@@ -22,16 +22,14 @@ class FetchSelectedPlayerAPIView(generics.RetrieveAPIView):
             return Response({'error': 'Selected player not found for today'}, status=404)
 
 class CreateSelectedPlayerAPIView(generics.CreateAPIView):
-  serializer_class = SelectedPlayerSerializer
+    serializer_class = SelectedPlayerSerializer
 
-  def perform_create(self, serializer):
-    all_players = Player.objects.all()
-    
-    random_player = random.choice(all_players)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    data = {'player': random_player}
-    
-    serializer.save(**data)
-
-  def post(self, request, *args, **kwargs):
-    return self.create(request, *args, **kwargs)
+    def perform_create(self, serializer):
+        serializer.save()
