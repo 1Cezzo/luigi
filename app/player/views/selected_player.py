@@ -22,13 +22,16 @@ class FetchSelectedPlayerAPIView(generics.RetrieveAPIView):
             return Response({'error': 'Selected player not found for today'}, status=404)
 
 class CreateSelectedPlayerAPIView(generics.CreateAPIView):
-    serializer_class = SelectedPlayerSerializer
+  serializer_class = SelectedPlayerSerializer
 
-    def perform_create(self, serializer):
-        all_players = Player.objects.all()
-        
-        random_player = random.choice(all_players)
+  def perform_create(self, serializer):
+    all_players = Player.objects.all()
+    
+    random_player = random.choice(all_players)
 
-        data = {'player': random_player}
-        
-        serializer.save(**data)
+    data = {'player': random_player}
+    
+    serializer.save(**data)
+
+  def post(self, request, *args, **kwargs):
+    return self.create(request, *args, **kwargs)
