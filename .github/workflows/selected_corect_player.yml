@@ -11,7 +11,6 @@ jobs:
       - name: Run Management Command
         run: |
           python manage.py update_selected_player
-        working-directory: /
 
     runs:
       using: 'node20'
