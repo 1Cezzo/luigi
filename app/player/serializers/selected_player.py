@@ -8,11 +8,10 @@ class SelectedPlayerSerializer(serializers.ModelSerializer):
         model = SelectedPlayer
         fields = '__all__'
 
-    def create(self, validated_data):
-        # If "player" is not provided in the validated_data, select a random player
-        if 'player' not in validated_data:
+    def to_internal_value(self, data):
+        if 'player' not in data or data['player'] is None:
             all_players = Player.objects.all()
             random_player = random.choice(all_players)
-            validated_data['player'] = random_player
+            data['player'] = random_player.id
         
-        return super().create(validated_data)
+        return super().to_internal_value(data)

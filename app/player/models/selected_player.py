@@ -6,7 +6,7 @@ class SelectedPlayer(models.Model):
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.player.name if self.player else 'Random Player'} - {self.date}"
+        return f"{self.player.name} - {self.date}"
     
     class Meta:
         db_table = 'selected_player'
