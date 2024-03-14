@@ -1,8 +1,8 @@
-import requests
 from django.core.management.base import BaseCommand
+from random import choice
+from app.player.models.player import Player
 from app.player.models.selected_player import SelectedPlayer
 from datetime import datetime, timezone
-from random import choice
 
 class Command(BaseCommand):
     help = 'Selects a new player for the current day'
@@ -12,24 +12,15 @@ class Command(BaseCommand):
 
         try:
             previous_selected_player_instance = SelectedPlayer.objects.get(date=today)
-            previous_selected_player_id = previous_selected_player_instance.player_id
+            previous_selected_player = previous_selected_player_instance.player
         except SelectedPlayer.DoesNotExist:
-            previous_selected_player_id = None
+            previous_selected_player = None
 
-        url = 'https://luigi-backend-7f709e978d15.herokuapp.com/players/'
-        response = requests.get(url)
-        response.raise_for_status()
-        players = response.json()
+        available_players = Player.objects.exclude(id=previous_selected_player.id) if previous_selected_player else Player.objects.all()
 
-        # Filter out the previously selected player
-        available_players = [player for player in players if player['id'] != previous_selected_player_id]
-
-        # Select a random player from the available players
         selected_player = choice(available_players)
-
-        # Update the SelectedPlayer instance in the local database
         selected_player_instance, _ = SelectedPlayer.objects.get_or_create(date=today)
-        selected_player_instance.player_id = selected_player['id']
+        selected_player_instance.player = selected_player
         selected_player_instance.save()
 
         self.stdout.write(self.style.SUCCESS('Selected player updated successfully for today'))
