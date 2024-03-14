@@ -1,9 +1,5 @@
 name: Select Correct Player
 
-on:
-  schedule:
-    - cron: '0 0 * * *'
-
 jobs:
   update-selected-player:
     runs-on: ubuntu-latest
@@ -16,4 +12,6 @@ jobs:
         run: |
           python manage.py update_selected_player
         working-directory: /
-        
+
+    runs:
+      using: 'node20'
