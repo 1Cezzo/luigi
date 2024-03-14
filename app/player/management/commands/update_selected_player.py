@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from random import choice
-from app.player.models import Player, SelectedPlayer
+from app.player.models.player import Player
+from app.player.models.selected_player import SelectedPlayer
 from datetime import datetime, timezone
 
 class Command(BaseCommand):
