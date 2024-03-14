@@ -3,7 +3,7 @@ from django.utils import timezone
 from app.player.models.player import Player
 
 class SelectedPlayer(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
