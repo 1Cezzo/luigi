@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from app.player.models.selected_player import SelectedPlayer
+from app.player.models.player import Player  # Add this import
 from app.player.serializers.selected_player import SelectedPlayerSerializer
 from datetime import datetime, timezone
 import random
@@ -24,7 +25,7 @@ class CreateSelectedPlayerAPIView(generics.CreateAPIView):
     serializer_class = SelectedPlayerSerializer
 
     def perform_create(self, serializer):
-        all_players = self.request.user.player.all()
+        all_players = Player.objects.all()
         
         random_player = random.choice(all_players)
 
