@@ -27,5 +27,7 @@ class CreateSelectedPlayerAPIView(generics.CreateAPIView):
         all_players = self.request.user.player.all()
         
         random_player = random.choice(all_players)
+
+        data = {'player': random_player.id}
         
-        serializer.save(player=random_player)
+        serializer.save(**data)
