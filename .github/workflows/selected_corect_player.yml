@@ -5,6 +5,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Print Directory Contents
+        run: ls -al
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
